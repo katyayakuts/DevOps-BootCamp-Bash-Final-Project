@@ -62,7 +62,7 @@ while getopts 'dvh' OPTION; do
 	exit 1
 	;;		  
     v) 
-      echo "$currentVersion"
+      echo "$currentVersion\n"
       exit 1
       ;;
     h)
