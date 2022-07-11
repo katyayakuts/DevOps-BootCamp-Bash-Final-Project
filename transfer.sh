@@ -59,11 +59,11 @@ while getopts 'dvh' OPTION; do
   case $OPTION in
     d)
         singleDownload "$2" "$3" "$4"
-	exit 1
+	exit 0
 	;;		  
     v) 
-      echo "$currentVersion\n"
-      exit 1
+      echo "$currentVersion"
+      exit 0
       ;;
     h)
       echo " Description: Bash tool to transfer files from the command line. 
@@ -82,12 +82,13 @@ while getopts 'dvh' OPTION; do
 	  ./transfer.sh -h
 
       "
-      exit 1
+      exit 0
       ;; 
       *) echo "use [-v] [-d] [-h]"
-         exit 1
+         exit 0
          ;;
   esac 
 done
 
 singleUpload "$@" || exit 1
+
