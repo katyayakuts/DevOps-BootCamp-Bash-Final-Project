@@ -18,11 +18,11 @@ EOF
 
 singleUpload()
 {
-
-  for i in $@
+  for i in "$@"
   do
     
-    filePath=$(echo "$i" | sed 's/~/$HOME/g')
+    #filePath=$(echo "$i" | sed 's/~/$HOME/g')
+    filePath=$i ; echo "${i//~/$HOME}"
 
     if [ ! -e "$filePath" ]; then
     {
@@ -41,9 +41,9 @@ singleUpload()
 
 singleDownload()
 {
-  filePath_d=$(echo "$1" | sed 's/\.\///g')
+  filePath=$(echo "$1" | sed 's/\.\///g')
   echo "Downloading $3"
-  response_d=$(curl -# --url "https://transfer.sh/$2/$3" --output "$filePath_d/$3")
+  response=$(curl -# --url "https://transfer.sh/$2/$3" --output "$filePath/$3")
   printDownloadResponse
 }
 
@@ -51,7 +51,7 @@ printDownloadResponse()
 {
   fileID=$(echo "$response" | cut -d "/" -f 4)
   cat <<EOF
-Success!
+Success! $fileID
 EOF
 }
 
@@ -84,6 +84,9 @@ while getopts 'dvh' OPTION; do
       "
       exit 1
       ;; 
+      *) echo "use [-v] [-d] [-h]"
+         exit 1
+         ;;
   esac 
 done
 
