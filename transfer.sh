@@ -42,6 +42,13 @@ singleUpload()
 singleDownload()
 {
   filePath=$(echo "$1" | sed 's/\.\///g')
+  
+  if [ ! -d "$filePath" ]
+  then
+    mkdir "$filePath"
+   # echo "create $filePath"	    
+  fi
+  
   echo "Downloading $3"
   response=$(curl -# --url "https://transfer.sh/$2/$3" --output "$filePath/$3")
   printDownloadResponse
